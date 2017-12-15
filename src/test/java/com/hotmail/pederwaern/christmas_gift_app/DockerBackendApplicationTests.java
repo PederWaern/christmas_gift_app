@@ -1,4 +1,4 @@
-package com.hotmail.pederwaern.docker_backend;
+package com.hotmail.pederwaern.christmas_gift_app;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
