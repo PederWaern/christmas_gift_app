@@ -1,9 +1,10 @@
 package com.hotmail.pederwaern.christmas_gift_app.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Child {
@@ -13,6 +14,18 @@ public class Child {
     private int id;
     private String firstName;
     private String lastName;
+
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+
+    @ApiModelProperty(hidden = true)
+    private List<Adult> adults = new ArrayList<>();
+
+    public List<Adult> getAdults() {
+        return adults;
+    }
 
     public int getId() {
         return id;
