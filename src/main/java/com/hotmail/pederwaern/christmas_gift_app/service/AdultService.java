@@ -27,6 +27,10 @@ public class AdultService {
     public void saveAdult(Adult adult) {
         repository.save(adult);
     }
+
+    public Adult getAdultById(Integer id) {
+       return repository.findOne(id);
+    }
 }
 
 

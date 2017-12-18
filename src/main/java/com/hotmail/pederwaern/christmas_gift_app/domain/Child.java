@@ -1,6 +1,6 @@
 package com.hotmail.pederwaern.christmas_gift_app.domain;
 
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,16 +15,20 @@ public class Child {
     private String firstName;
     private String lastName;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-
-    @ApiModelProperty(hidden = true)
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "adults_children",
+            joinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "adult_id", referencedColumnName = "id"))
     private List<Adult> adults = new ArrayList<>();
+
 
     public List<Adult> getAdults() {
         return adults;
+    }
+
+    public void setAdults(List<Adult> adults) {
+        this.adults = adults;
     }
 
     public int getId() {
@@ -49,5 +53,25 @@ public class Child {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Child child = (Child) o;
+
+        if (id != child.id) return false;
+        if (firstName != null ? !firstName.equals(child.firstName) : child.firstName != null) return false;
+        return lastName != null ? lastName.equals(child.lastName) : child.lastName == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        return result;
     }
 }
