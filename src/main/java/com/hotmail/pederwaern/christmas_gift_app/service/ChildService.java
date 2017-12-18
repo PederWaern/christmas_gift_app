@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class ChildService {
 
+    private final ChildRepository repository;
+
     @Autowired
-    private ChildRepository repository;
+    public ChildService(ChildRepository repository) {
+        this.repository = repository;
+    }
 
     public List<Child> getAllChildren() {
         List<Child> children = new ArrayList<>();

@@ -15,6 +15,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class DockerBackendApplication {
 
+	public static final String V1_BASEPATH = "api/v1/";
+
 	public static void main(String[] args) {
 		SpringApplication.run(DockerBackendApplication.class, args);
 	}
