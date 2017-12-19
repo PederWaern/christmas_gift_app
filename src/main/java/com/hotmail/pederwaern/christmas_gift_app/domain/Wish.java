@@ -8,10 +8,12 @@ import javax.persistence.*;
 public class Wish {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private String description;
     private Integer price;
+    private boolean bought;
 
     @JsonIgnore
     @ManyToOne()
@@ -56,6 +58,14 @@ public class Wish {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public boolean isBought() {
+        return bought;
+    }
+
+    public void setBought(boolean bought) {
+        this.bought = bought;
     }
 
 

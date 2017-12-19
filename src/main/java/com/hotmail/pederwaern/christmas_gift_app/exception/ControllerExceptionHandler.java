@@ -8,10 +8,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-    @ExceptionHandler(ApiResourceNotFound.class)
-    public ResponseEntity handleNotFound() {
-        System.err.println("Resource not found");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resource not found");
+    @ExceptionHandler(ChildResourceNotFound.class)
+    public ResponseEntity handleChildNotFound() {
+        System.err.println("Child not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Child not found");
+    }
+
+    @ExceptionHandler(AdultResourceNotFound.class)
+    public ResponseEntity handleAdultNotFound() {
+        System.err.println("Adult not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Adult not found");
     }
 
     @ExceptionHandler(InvalidRequestBody.class)
@@ -20,6 +26,8 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request");
     }
 
-
-
+    public static class ChildResourceNotFound extends RuntimeException {}
+    public static class InvalidRequestBody extends RuntimeException {}
+    public static class AdultResourceNotFound extends RuntimeException {
+    }
 }

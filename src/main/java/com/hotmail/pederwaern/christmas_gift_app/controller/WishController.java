@@ -24,4 +24,5 @@ public class WishController {
     public List<Wish> getAllWishes() {
         return service.getAllWishes();
     }
+
 }

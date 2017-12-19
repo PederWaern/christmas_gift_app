@@ -1,7 +1,7 @@
 package com.hotmail.pederwaern.christmas_gift_app.service;
 
 import com.hotmail.pederwaern.christmas_gift_app.domain.Adult;
-import com.hotmail.pederwaern.christmas_gift_app.exception.InvalidRequestBody;
+import com.hotmail.pederwaern.christmas_gift_app.exception.ControllerExceptionHandler;
 import com.hotmail.pederwaern.christmas_gift_app.repository.AdultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +27,15 @@ public class AdultService {
 
     public void saveAdult(Adult adult) {
         if (adult.getFirstName() == null || adult.getLastName() == null) {
-            throw new InvalidRequestBody();
+            throw new ControllerExceptionHandler.InvalidRequestBody();
         }
         repository.save(adult);
     }
 
     public Adult getAdultById(Integer id) {
+       if (repository.findOne(id) == null) {
+           throw new ControllerExceptionHandler.AdultResourceNotFound();
+       }
        return repository.findOne(id);
     }
 }

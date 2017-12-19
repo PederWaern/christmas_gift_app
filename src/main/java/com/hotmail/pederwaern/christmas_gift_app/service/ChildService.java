@@ -2,7 +2,7 @@ package com.hotmail.pederwaern.christmas_gift_app.service;
 
 import com.hotmail.pederwaern.christmas_gift_app.domain.Adult;
 import com.hotmail.pederwaern.christmas_gift_app.domain.Child;
-import com.hotmail.pederwaern.christmas_gift_app.exception.ApiResourceNotFound;
+import com.hotmail.pederwaern.christmas_gift_app.exception.ControllerExceptionHandler;
 import com.hotmail.pederwaern.christmas_gift_app.repository.ChildRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class ChildService {
     public Child getChildById(Integer id) {
         Child child =  repository.findOne(id);
         if (child == null) {
-            throw new ApiResourceNotFound();
+            throw new ControllerExceptionHandler.ChildResourceNotFound();
         }
         return child;
     }
