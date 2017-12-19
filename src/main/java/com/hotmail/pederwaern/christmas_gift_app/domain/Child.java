@@ -3,28 +3,43 @@ package com.hotmail.pederwaern.christmas_gift_app.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Child {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private int id;
+
     private String firstName;
     private String lastName;
 
+    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
+    private Set<Wish> wishes = new HashSet<>();
+
     @JsonIgnore
     @ManyToMany(mappedBy = "children")
-    private List<Adult> adults = new ArrayList<>();
+    private Set<Adult> adults = new HashSet<>();
+
+    public void addWish(Wish wish) {
+        wishes.add(wish);
+        wish.setChild(this);
+    }
+
+    public void removeWish(Wish wish) {
+        wishes.remove(wish);
+        wish.setChild(null);
+    }
 
 
-    public List<Adult> getAdults() {
+    public Set<Adult> getAdults() {
         return adults;
     }
 
-    public void setAdults(List<Adult> adults) {
+    public void setAdults(Set<Adult> adults) {
         this.adults = adults;
     }
 
@@ -50,6 +65,14 @@ public class Child {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Set<Wish> getWishes() {
+        return wishes;
+    }
+
+    public void setWishes(Set<Wish> wishes) {
+        this.wishes = wishes;
     }
 
     @Override

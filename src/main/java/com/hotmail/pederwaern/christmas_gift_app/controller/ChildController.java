@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/child/")
+
 public class ChildController {
 
     private final ChildService service;
@@ -24,7 +25,7 @@ public class ChildController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public Child getChildById(@PathVariable Integer id) {
+    public Child getChildById(@PathVariable Integer id)  {
         return service.getChildById(id);
     }
 

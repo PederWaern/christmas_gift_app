@@ -1,9 +1,12 @@
 package com.hotmail.pederwaern.christmas_gift_app.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Adult {
@@ -11,14 +14,17 @@ public class Adult {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "adults_children",
             joinColumns = @JoinColumn(name = "adult_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"))
-    private List<Child> children = new ArrayList<>();
+    private Set<Child> children = new HashSet<>();
 
     public int getId() {
         return id;
@@ -45,11 +51,11 @@ public class Adult {
     }
 
 
-    public List<Child> getChildren() {
+    public Set<Child> getChildren() {
         return children;
     }
 
-    public void setChildren(List<Child> children) {
+    public void setChildren(Set<Child> children) {
         this.children = children;
     }
 
