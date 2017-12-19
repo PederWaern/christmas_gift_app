@@ -1,7 +1,6 @@
 package com.hotmail.pederwaern.christmas_gift_app.controller;
 
 import com.hotmail.pederwaern.christmas_gift_app.domain.Adult;
-import com.hotmail.pederwaern.christmas_gift_app.domain.Child;
 import com.hotmail.pederwaern.christmas_gift_app.service.AdultService;
 import com.hotmail.pederwaern.christmas_gift_app.service.ChildService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,21 +28,15 @@ public class AdultController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public Adult getAdultById(@PathVariable Integer id) {
-        Adult returned = service.getAdultById(id);
-        return returned;
+        return service.getAdultById(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/{id}/addChildren")
-    public Adult addChildrenToAdult(@PathVariable Integer id,
-                                    @RequestBody List<Child> children) {
+    @RequestMapping(method = RequestMethod.POST, value = "/{id}/addChild/{childId}")
+    public Adult addChildToAdult(@PathVariable Integer id,
+                                 @PathVariable Integer childId) {
         Adult adult = service.getAdultById(id);
-
-        for (Child c: children) {
-            //TODO Fixa så att den inte sätter uteblivna variabler till null
-            c.getAdults().add(adult);
-            adult.getChildren().add(c);
-            child_service.saveChild(c);
-        }
+        adult.getChildren().add(child_service.getChildById(childId));
+        service.saveAdult(adult);
         return adult;
     }
 

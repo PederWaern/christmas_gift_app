@@ -16,10 +16,7 @@ public class Child {
     private String lastName;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(name = "adults_children",
-            joinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "adult_id", referencedColumnName = "id"))
+    @ManyToMany(mappedBy = "children")
     private List<Adult> adults = new ArrayList<>();
 
 

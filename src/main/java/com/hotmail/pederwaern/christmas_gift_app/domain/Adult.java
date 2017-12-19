@@ -14,7 +14,10 @@ public class Adult {
     private String firstName;
     private String lastName;
 
-    @ManyToMany(mappedBy = "adults")
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(name = "adults_children",
+            joinColumns = @JoinColumn(name = "adult_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"))
     private List<Child> children = new ArrayList<>();
 
     public int getId() {
