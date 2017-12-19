@@ -16,6 +16,8 @@ public class Adult {
     private String firstName;
     @NotNull
     private String lastName;
+    @NotNull
+    private String email;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "adults_children",
@@ -54,6 +56,14 @@ public class Adult {
 
     public void setChildren(Set<Child> children) {
         this.children = children;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

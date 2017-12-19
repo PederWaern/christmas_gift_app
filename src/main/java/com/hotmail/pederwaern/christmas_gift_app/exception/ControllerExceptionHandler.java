@@ -26,7 +26,15 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request");
     }
 
+
+    @ExceptionHandler(WishResourceNotFound.class)
+    public ResponseEntity handleWishNotFound() {
+        System.err.println("Wish not found");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wish not found");
+    }
+
     public static class ChildResourceNotFound extends RuntimeException {}
+    public static class WishResourceNotFound extends RuntimeException {}
     public static class InvalidRequestBody extends RuntimeException {}
     public static class AdultResourceNotFound extends RuntimeException {
     }
