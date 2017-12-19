@@ -2,13 +2,15 @@ package com.hotmail.pederwaern.christmas_gift_app.controller;
 
 import com.hotmail.pederwaern.christmas_gift_app.domain.Child;
 import com.hotmail.pederwaern.christmas_gift_app.service.ChildService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/child/")
+@Api
+@RestController(value = "Child")
+@RequestMapping(value = "/child/")
 
 public class ChildController {
 

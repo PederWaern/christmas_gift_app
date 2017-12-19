@@ -1,7 +1,5 @@
-package com.hotmail.pederwaern.christmas_gift_app.controller;
+package com.hotmail.pederwaern.christmas_gift_app.exception;
 
-import com.hotmail.pederwaern.christmas_gift_app.exception.ApiResourceNotFound;
-import com.hotmail.pederwaern.christmas_gift_app.exception.InvalidRequestBody;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

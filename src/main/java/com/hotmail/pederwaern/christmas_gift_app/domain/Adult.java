@@ -1,8 +1,6 @@
 package com.hotmail.pederwaern.christmas_gift_app.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -19,7 +17,6 @@ public class Adult {
     @NotNull
     private String lastName;
 
-    @JsonIgnore
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "adults_children",
             joinColumns = @JoinColumn(name = "adult_id", referencedColumnName = "id"),

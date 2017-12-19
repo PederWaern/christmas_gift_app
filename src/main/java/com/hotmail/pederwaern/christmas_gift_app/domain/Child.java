@@ -11,29 +11,19 @@ public class Child {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @JsonIgnore
     private int id;
 
     private String firstName;
     private String lastName;
 
-    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
-    private Set<Wish> wishes = new HashSet<>();
 
     @JsonIgnore
     @ManyToMany(mappedBy = "children")
     private Set<Adult> adults = new HashSet<>();
 
-    public void addWish(Wish wish) {
-        wishes.add(wish);
-        wish.setChild(this);
-    }
 
-    public void removeWish(Wish wish) {
-        wishes.remove(wish);
-        wish.setChild(null);
-    }
-
+    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
+    private Set<Wish> wishes;
 
     public Set<Adult> getAdults() {
         return adults;

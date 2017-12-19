@@ -1,5 +1,7 @@
 package com.hotmail.pederwaern.christmas_gift_app.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,7 +12,9 @@ public class Wish {
     private String name;
     private String description;
     private Integer price;
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @JsonIgnore
+    @ManyToOne()
     @JoinColumn(name = "child_id")
     private Child child;
 
