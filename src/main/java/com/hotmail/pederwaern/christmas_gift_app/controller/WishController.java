@@ -2,6 +2,7 @@ package com.hotmail.pederwaern.christmas_gift_app.controller;
 
 import com.hotmail.pederwaern.christmas_gift_app.domain.Wish;
 import com.hotmail.pederwaern.christmas_gift_app.service.WishService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class WishController {
         this.service = service;
     }
 
+    @ApiOperation(value = "Get all wishes")
     @RequestMapping(method = RequestMethod.GET)
     public List<Wish> getAllWishes() {
         return service.getAllWishes();
