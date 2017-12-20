@@ -4,12 +4,14 @@ import com.hotmail.pederwaern.christmas_gift_app.DockerBackendApplication;
 import com.hotmail.pederwaern.christmas_gift_app.domain.Adult;
 import com.hotmail.pederwaern.christmas_gift_app.exception.ControllerExceptionHandler;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+@Ignore
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DockerBackendApplication.class)
 public class AdultServiceTest {
