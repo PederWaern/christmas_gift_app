@@ -1,7 +1,7 @@
-package com.hotmail.pederwaern.christmas_gift_app;
+package com.hotmail.pederwaern.christmas_gift_app.repository;
 
+import com.hotmail.pederwaern.christmas_gift_app.DockerBackendApplication;
 import com.hotmail.pederwaern.christmas_gift_app.domain.Child;
-import com.hotmail.pederwaern.christmas_gift_app.repository.ChildRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +16,13 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @SpringBootTest(classes = DockerBackendApplication.class)
-public class DockerBackendApplicationTests {
+public class ChildRepositoryTest {
 
 	@Autowired
 	private TestEntityManager entityManager;
 
 	@Autowired
 	private ChildRepository childRepository;
-
-	@Test
-	public void contextLoads() {
-
-	}
 
 	@Test
 	public void testChildRepo() {
@@ -40,5 +35,7 @@ public class DockerBackendApplicationTests {
 		Child foundChild = childRepository.findByFirstName(child.getFirstName());
 		assertThat(foundChild.getFirstName(), is(child.getFirstName()));
 	}
+
+
 
 }

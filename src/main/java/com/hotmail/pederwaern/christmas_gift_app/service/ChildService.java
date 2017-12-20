@@ -27,7 +27,7 @@ public class ChildService {
     }
 
     public Child getChildById(Integer id) {
-        Child child =  repository.findOne(id);
+        Child child = repository.findOne(id);
         if (child == null) {
             throw new ControllerExceptionHandler.ChildResourceNotFound();
         }
