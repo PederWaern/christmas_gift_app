@@ -1,19 +1,20 @@
 version: '2'
 services:
   web:
+    #mem_limit: 200m
     build: .
-    ports:
-      - "8080:8080"
+    ports:  
+      - "80:8080"
     links:
       - "db:mysql"
-    container_name: christmas_gift_backend
     depends_on:
       - db
-
   db:
     image: mysql:5.7
-    restart: always
-    container_name: christmas_db
+    ports:
+      - "3306:3306"
+    # mem_limit: 50m
+    # restart: always
     environment:
       MYSQL_ROOT_PASSWORD: "waernpeder"
       MYSQL_DATABASE: "test"

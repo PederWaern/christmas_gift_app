@@ -3,6 +3,7 @@ target/
 
 # database creds
 src/main/resources/application.properties
+docker-compose-deploy.yml
 
 ### STS ###
 .apt_generated
