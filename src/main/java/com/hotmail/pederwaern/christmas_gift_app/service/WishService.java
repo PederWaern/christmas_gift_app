@@ -6,9 +6,16 @@ import com.hotmail.pederwaern.christmas_gift_app.domain.Wish;
 import com.hotmail.pederwaern.christmas_gift_app.domain.WishMailWrapper;
 import com.hotmail.pederwaern.christmas_gift_app.exception.ControllerExceptionHandler;
 import com.hotmail.pederwaern.christmas_gift_app.repository.WishRepository;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,12 +53,39 @@ public class WishService {
     }
 
     private void sendEmailToAdults(Wish wish) {
+        String json = parseWishToJson(wish);
+        send_HTTP_Request(json);
+    }
+
+    private String parseWishToJson(Wish wish) {
         ObjectMapper mapper = new ObjectMapper();
         WishMailWrapper wishDecorator = new WishMailWrapper(wish);
+        String payload = "";
         try {
-            System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(wishDecorator));
+            payload = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(wishDecorator);
+            System.out.println(payload);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+        return payload;
     }
+
+    private void send_HTTP_Request(String payload) {
+        StringEntity entity = new StringEntity(payload,
+                ContentType.APPLICATION_JSON);
+
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        HttpPost request = new HttpPost("http://localhost:5000/sendMail");
+        request.setEntity(entity);
+
+        HttpResponse response = null;
+        try {
+            response = httpClient.execute(request);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(response.getStatusLine().getStatusCode());
+    }
+
+    //TODO Flytta ut logiken till en egen klass?
 }
