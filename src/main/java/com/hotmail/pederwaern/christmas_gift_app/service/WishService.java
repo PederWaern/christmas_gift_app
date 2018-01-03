@@ -48,7 +48,7 @@ public class WishService {
 
     private void sendEmailToAdults(Wish wish) {
         String json = parseWishToJson(wish);
-        new HttpRequestPost(json, "http://localhost:5000/sendMail")
+        new HttpRequestPost(json, "http://mailserver:5000/sendMail")
                 .sendHttpRequest();
     }
 
