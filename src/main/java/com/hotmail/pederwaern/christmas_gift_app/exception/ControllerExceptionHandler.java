@@ -36,6 +36,5 @@ public class ControllerExceptionHandler {
     public static class ChildResourceNotFound extends RuntimeException {}
     public static class WishResourceNotFound extends RuntimeException {}
     public static class InvalidRequestBody extends RuntimeException {}
-    public static class AdultResourceNotFound extends RuntimeException {
-    }
+    public static class AdultResourceNotFound extends RuntimeException {}
 }
