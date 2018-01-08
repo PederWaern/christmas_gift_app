@@ -19,7 +19,7 @@ public class Adult {
     @NotNull
     private String email;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "adults_children",
             joinColumns = @JoinColumn(name = "adult_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "child_id", referencedColumnName = "id"))

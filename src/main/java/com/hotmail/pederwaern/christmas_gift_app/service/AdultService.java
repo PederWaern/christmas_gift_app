@@ -29,6 +29,7 @@ public class AdultService {
         if (adult.getFirstName() == null || adult.getLastName() == null) {
             throw new ControllerExceptionHandler.InvalidRequestBody();
         }
+        adult.setId(0);
         repository.save(adult);
     }
 

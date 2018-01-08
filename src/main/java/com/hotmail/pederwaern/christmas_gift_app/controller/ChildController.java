@@ -43,8 +43,7 @@ public class ChildController {
     public Child addWishToChild(@PathVariable Integer id, @RequestBody Wish wish) {
         Child child = service.getChildById(id);
         wish.setChild(child);
-        child.getWishes().add(wish);
-        service.saveChild(child);
+        wish_service.saveWish(wish);
         return child;
     }
 

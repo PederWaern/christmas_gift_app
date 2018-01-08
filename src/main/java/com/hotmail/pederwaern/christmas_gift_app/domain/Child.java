@@ -21,9 +21,21 @@ public class Child {
     @ManyToMany(mappedBy = "children")
     private Set<Adult> adults = new HashSet<>();
 
-
-    @OneToMany(mappedBy = "child", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "child")
     private Set<Wish> wishes;
+
+    @PreRemove
+    public void nullifyRelations() {
+        System.out.println("Hello from nullifyRelations");
+        if(wishes != null) {
+            getWishes().forEach(wish -> wish.setChild(null));
+        }
+        if(adults != null) {
+            for (Adult adult: getAdults()) {
+                adult.getChildren().remove(this);
+            }
+        }
+    }
 
     public Set<Adult> getAdults() {
         return adults;
