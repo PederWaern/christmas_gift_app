@@ -23,4 +23,5 @@ services:
     build: ../mail/
     ports: 
       - "5000:5000"
+      - 25
     

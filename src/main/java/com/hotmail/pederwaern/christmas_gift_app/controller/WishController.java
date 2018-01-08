@@ -36,4 +36,9 @@ public class WishController {
         return wish;
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, value="{id}")
+    public String deleteWish(@PathVariable Integer id) {
+        return service.deleteWish(id);
+    }
+
 }

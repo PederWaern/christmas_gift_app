@@ -48,6 +48,11 @@ public class ChildController {
         return child;
     }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public String deleteChild(@PathVariable Integer id) {
+        return service.deleteChild(id);
+    }
+
 
 
 

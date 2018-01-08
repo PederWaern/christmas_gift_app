@@ -7,6 +7,7 @@ import com.hotmail.pederwaern.christmas_gift_app.domain.WishMailWrapper;
 import com.hotmail.pederwaern.christmas_gift_app.exception.ControllerExceptionHandler;
 import com.hotmail.pederwaern.christmas_gift_app.integration.HttpRequestPost;
 import com.hotmail.pederwaern.christmas_gift_app.repository.WishRepository;
+import com.hotmail.pederwaern.christmas_gift_app.utils.JSONReturnMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,10 @@ import java.util.List;
 public class WishService {
 
     private final WishRepository repository;
-    private final AdultService adultService;
 
     @Autowired
-    public WishService(WishRepository repository, AdultService adultService) {
+    public WishService(WishRepository repository) {
         this.repository = repository;
-        this.adultService = adultService;
     }
 
     public List<Wish> getAllWishes() {
@@ -33,10 +32,18 @@ public class WishService {
 
     public Wish getWishById(Integer id) {
         final Wish wish = repository.findOne(id);
-        if (wish == null) {
+        if(wish == null) {
             throw new ControllerExceptionHandler.WishResourceNotFound();
         }
         return wish;
+    }
+
+    public String deleteWish(Integer id) {
+        if(repository.findOne(id) == null || id == null) {
+            throw new ControllerExceptionHandler.WishResourceNotFound();
+        }
+        repository.delete(id);
+        return new JSONReturnMessage(id, "Wish").format();
     }
 
     public void saveWish(Wish wish) {

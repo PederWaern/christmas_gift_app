@@ -4,6 +4,7 @@ import com.hotmail.pederwaern.christmas_gift_app.domain.Adult;
 import com.hotmail.pederwaern.christmas_gift_app.domain.Child;
 import com.hotmail.pederwaern.christmas_gift_app.exception.ControllerExceptionHandler;
 import com.hotmail.pederwaern.christmas_gift_app.repository.ChildRepository;
+import com.hotmail.pederwaern.christmas_gift_app.utils.JSONReturnMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +45,13 @@ public class ChildService {
 
     public void saveChild(Child child) {
         repository.save(child);
+    }
+
+    public String deleteChild(Integer id) {
+        if(id == null || repository.findOne(id) == null) {
+            throw new ControllerExceptionHandler.ChildResourceNotFound();
+        }
+        repository.delete(id);
+        return new JSONReturnMessage(id, "Child").format();
     }
 }
