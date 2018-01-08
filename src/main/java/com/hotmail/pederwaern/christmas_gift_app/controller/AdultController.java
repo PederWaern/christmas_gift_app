@@ -40,13 +40,15 @@ public class AdultController {
         return adult;
     }
 
-
-
     @RequestMapping(method = RequestMethod.POST)
     public Adult saveAdult(@RequestBody Adult adult) {
+        adult.setId(0);
         service.saveAdult(adult);
         return adult;
     }
 
-
+    @RequestMapping(method = RequestMethod.DELETE)
+    public String deleteAdult(@RequestParam Integer id){
+        return service.deleteAdult(id);
+    }
 }

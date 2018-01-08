@@ -3,6 +3,7 @@ package com.hotmail.pederwaern.christmas_gift_app.service;
 import com.hotmail.pederwaern.christmas_gift_app.domain.Adult;
 import com.hotmail.pederwaern.christmas_gift_app.exception.ControllerExceptionHandler;
 import com.hotmail.pederwaern.christmas_gift_app.repository.AdultRepository;
+import com.hotmail.pederwaern.christmas_gift_app.utils.JSONReturnMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,6 @@ public class AdultService {
         if (adult.getFirstName() == null || adult.getLastName() == null) {
             throw new ControllerExceptionHandler.InvalidRequestBody();
         }
-        adult.setId(0);
         repository.save(adult);
     }
 
@@ -38,6 +38,14 @@ public class AdultService {
            throw new ControllerExceptionHandler.AdultResourceNotFound();
        }
        return repository.findOne(id);
+    }
+
+    public String deleteAdult(Integer id) {
+        if(id == null || repository.findOne(id) == null) {
+            throw new ControllerExceptionHandler.AdultResourceNotFound();
+        }
+        repository.delete(id);
+        return new JSONReturnMessage(id, "Adult").format();
     }
 }
 

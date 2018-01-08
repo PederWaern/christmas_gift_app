@@ -50,7 +50,6 @@ public class WishService {
         if(wish.isBought()) {
             sendEmailToAdults(wish);
         }
-        wish.setId(0);
         repository.save(wish);
     }
 

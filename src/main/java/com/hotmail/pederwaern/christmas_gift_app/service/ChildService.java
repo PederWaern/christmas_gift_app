@@ -44,7 +44,6 @@ public class ChildService {
 
 
     public void saveChild(Child child) {
-        child.setId(0);
         repository.save(child);
     }
 
